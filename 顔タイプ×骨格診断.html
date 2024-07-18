@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顔タイプ・骨格診断</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            display: none;
+            margin-bottom: 15px;
+        }
+        .question.active {
+            display: block;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result img {
+            max-width: 300px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .question-button, .start-button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+        .question-button:hover, .start-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>顔タイプ・骨格診断</h1>
+    <div id="start-container">
+        <button class="start-button">診断スタート！</button>
+    </div>
+    <div id="form-container">
+        <div id="questions">
+            <!-- 各質問を個別に追加 -->
+            <div class="question" data-question-id="1">
+                <p>顔の形を選んでください:</p>
+                <button class="question-button" data-answer="A">丸顔</button>
+                <button class="question-button" data-answer="B">卵型</button>
+            </div>
+            <div class="question" data-question-id="2">
+                <p>鼻の下から顎の長さを選んでください:</p>
+                <button class="question-button" data-answer="A">短い</button>
+                <button class="question-button" data-answer="B">長い</button>
+            </div>
+            <div class="question" data-question-id="3">
+                <p>目の位置を選んでください:</p>
+                <button class="question-button" data-answer="A">離れ気味</button>
+                <button class="question-button" data-answer="B">寄っている</button>
+            </div>
+            <div class="question" data-question-id="4">
+                <p>鼻の高さを選んでください:</p>
+                <button class="question-button" data-answer="A">低め</button>
+                <button class="question-button" data-answer="B">高い</button>
+            </div>
+            <div class="question" data-question-id="5">
+                <p>顔の立体感を選んでください:</p>
+                <button class="question-button" data-answer="A">平面的</button>
+                <button class="question-button" data-answer="B">立体的</button>
+            </div>
+            <div class="question" data-question-id="6">
+                <p>目の大きさを選んでください:</p>
+                <button class="question-button" data-answer="A">小さめ</button>
+                <button class="question-button" data-answer="B">大きめ</button>
+            </div>
+            <div class="question" data-question-id="7">
+                <p>口の大きさを選んでください:</p>
+                <button class="question-button" data-answer="A">小さい</button>
+                <button class="question-button" data-answer="B">大きい</button>
+            </div>
+            <div class="question" data-question-id="8">
+                <p>鼻の大きさを選んでください:</p>
+                <button class="question-button" data-answer="A">小さい</button>
+                <button class="question-button" data-answer="B">大きい</button>
+            </div>
+            <div class="question" data-question-id="9">
+                <p>顔全体の形状を選んでください:</p>
+                <button class="question-button" data-answer="C">骨を感じない</button>
+                <button class="question-button" data-answer="D">骨を感じる</button>
+            </div>
+            <div class="question" data-question-id="10">
+                <p>頬の肉感を選んでください:</p>
+                <button class="question-button" data-answer="C">丸くふっくらしている</button>
+                <button class="question-button" data-answer="D">丸みを感じない</button>
+            </div>
+            <div class="question" data-question-id="11">
+                <p>目の形状を選んでください:</p>
+                <button class="question-button" data-answer="C">丸く縦幅がある</button>
+                <button class="question-button" data-answer="D">切れ長</button>
+            </div>
+            <div class="question" data-question-id="12">
+                <p>瞼のタイプを選んでください:</p>
+                <button class="question-button" data-answer="C">二重</button>
+                <button class="question-button" data-answer="D">一重もしくは奥二重</button>
+            </div>
+            <div class="question" data-question-id="13">
+                <p>目の形状を選んでください:</p>
+                <button class="question-button" data-answer="C">垂れ目</button>
+                <button class="question-button" data-answer="D">つり目</button>
+            </div>
+            <div class="question" data-question-id="14">
+                <p>鼻の形を選んでください:</p>
+                <button class="question-button" data-answer="C">小鼻に丸みがある</button>
+                <button class="question-button" data-answer="D">鼻筋が通っている</button>
+            </div>
+            <div class="question" data-question-id="15">
+                <p>唇の厚みを選んでください:</p>
+                <button class="question-button" data-answer="C">厚い</button>
+                <button class="question-button" data-answer="D">薄い</button>
+            </div>
+            <div class="question" data-question-id="16">
+                <p>体つきを選んでください:</p>
+                <button class="question-button" data-answer="1">厚みがある</button>
+                <button class="question-button" data-answer="2">薄い</button>
+                <button class="question-button" data-answer="3">フレームがしっかりしている</button>
+            </div>
+            <div class="question" data-question-id="17">
+                <p>首の長さを選んでください:</p>
+                <button class="question-button" data-answer="1">短め</button>
+                <button class="question-button" data-answer="2">長め</button>
+                <button class="question-button" data-answer="3">筋が目立つ</button>
+            </div>
+            <div class="question" data-question-id="18">
+                <p>鎖骨の形を選んでください:</p>
+                <button class="question-button" data-answer="1">あまり出てない</button>
+                <button class="question-button" data-answer="2">くっきり出ている</button>
+                <button class="question-button" data-answer="3">大きくしっかりしている</button>
+            </div>
+            <div class="question" data-question-id="19">
+                <p>胸元の形を選んでください:</p>
+                <button class="question-button" data-answer="1">厚い</button>
+                <button class="question-button" data-answer="2">薄い</button>
+                <button class="question-button" data-answer="3">骨っぽい</button>
+            </div>
+            <div class="question" data-question-id="20">
+                <p>肩の形を選んでください:</p>
+                <button class="question-button" data-answer="1">がっしりしている</button>
+                <button class="question-button" data-answer="2">なで肩または肩甲骨が出ている</button>
+                <button class="question-button" data-answer="3">太いまたはいかり肩</button>
+            </div>
+            <div class="question" data-question-id="21">
+                <p>ウエストの形を選んでください:</p>
+                <button class="question-button" data-answer="1">厚くまっすぐ</button>
+                <button class="question-button" data-answer="2">細くくびれている</button>
+                <button class="question-button" data-answer="3">太く直線的</button>
+            </div>
+            <div class="question" data-question-id="22">
+                <p>手の形を選んでください:</p>
+                <button class="question-button" data-answer="1">手のひらに弾力がある</button>
+                <button class="question-button" data-answer="2">平たい</button>
+                <button class="question-button" data-answer="3">筋や骨が目立つ</button>
+            </div>
+        </div>
+    </div>
+    <div id="result-container" class="result" style="display: none;"></div>
+
+
+    <script>
+        const coordinates = {
+            "キュート": {
+                "ストレート": [
+                    { "image": "https://imgur.com/WcZPXb1.jpg", "description": "柔らか素材のアウター" },
+                    { "image": "https://imgur.com/XsWVztl.jpg", "description": "もこもこニット" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/84Thnsg.jpg", "description": "ネクタイとデザイン性のあるボリューミーなアウター" },
+                    { "image": "https://imgur.com/vzZh0qI.jpg", "description": "ウエストで引き締まったミニ丈フリルワンピース" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/DmD56vP.jpg", "description": "リラックスしたニットとズボン" },
+                    { "image": "https://imgur.com/d1BUJaZ.jpg", "description": "キュートなカラーのゆったりワンピース" }
+                ]
+            },
+            "アクティブキュート": {
+                "ストレート": [
+                    { "image": "https://imgur.com/7Wnv5QW.jpg", "description": "光沢感あるジャケットとレザーブーツ" },
+                    { "image": "https://imgur.com/MnOPic2.jpg", "description": "大きな柄のブラウスにタイトスカート" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/aYhBLC6.jpg", "description": "柔らか素材のデニムセットアップ" },
+                    { "image": "https://imgur.com/Bcjghgy.jpg", "description": "ウエストマークのあるミニ丈チェック柄ワンピース" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/eI5K8PX.jpg", "description": "動きやすいカジュアルなセットアップ" },
+                    { "image": "https://imgur.com/vmkYQW3.jpg", "description": "デザイン性のある形のゆったりワンピース" }
+                ]
+            },
+            "フェミニン": {
+                "ストレート": [
+                    { "image": "https://imgur.com/2pU9jj4.jpg", "description": "少し胸元の空いたシャツにきれいめセットアップ" },
+                    { "image": "https://imgur.com/UofoTU1.jpg", "description": "Vラインのニットトップス" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/ufMYeuM.jpg", "description": "ハイウエストのボトムスにニットカーディガン" },
+                    { "image": "https://imgur.com/86Sgj6o.jpg", "description": "ウエストが引き締まった花柄ワンピース" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/wGkqWmN.jpg", "description": "ロングコートにハイネックなトップスのきれいめセットアップ" },
+                    { "image": "https://imgur.com/57RUYfp.jpg", "description": "スカートがフリルのフェミニンワンピース" }
+                ]
+            },
+            "エレガント": {
+                "ストレート": [
+                    { "image": "https://imgur.com/QVlezUL.jpg", "description": "薄めのトップスに腰の位置ではかれたボトムス" },
+                    { "image": "https://imgur.com/rx4AVUu.jpg", "description": "カジュアルなボトムスと華やかなブラウス" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/v7Tb0dK.jpg", "description": "大きな柄のアウターにきれいめなセットアップ" },
+                    { "image": "https://imgur.com/dWiZKSG.jpg", "description": "ウエストが引き締まった派手なデザインのワンピース" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/F2thSz6.jpg", "description": "大きめのアウターにきっちりしたセットアップ" },
+                    { "image": "https://imgur.com/ZjhzmwP.jpg", "description": "光沢感あるワンピースに高級感あるロングブーツ" }
+                ]
+            },
+　　　　　　"フレッシュ": {
+                "ストレート": [
+                    { "image": "https://imgur.com/i9jicV0.jpg", "description": "無地でシンプルなトップスとボトムス" },
+                    { "image": "https://imgur.com/E0jqeNb.jpg", "description": "カジュアルなTシャツとデニム" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/YzSC9in.jpg", "description": "タックインされたカジュアルなスウェットとスポーティーな帽子" },
+                    { "image": "https://imgur.com/bY9j9nn.jpg", "description": "シンプルなデザインのトップスにミニ丈スカート" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/wGbQN63.jpg", "description": "動きやすいカジュアルな無地トップス" },
+                    { "image": "https://imgur.com/ZYAOmeS.jpg", "description": "ゆったりとした無地のトップスにシンプルなカーゴパンツ" }
+                ]
+            },
+            "ソフトエレガント": {
+                "ストレート": [
+                    { "image": "https://imgur.com/Rnztxej.jpg", "description": "胸元がすっきりしたシャツにシンプルなスキニー" },
+                    { "image": "https://imgur.com/qKOsWFw.jpg", "description": "首回りがすっきりしたシンプルなデザインのワンピース" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/jKUmmVI.jpg", "description": "フリルのブラウスにウエスト位置ではかれたきれいめボトムス" },
+                    { "image": "https://imgur.com/xQutXr1.jpg", "description": "ウエストマークされた無地のフリルワンピース" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/0pAZuoi.jpg", "description": "丈の長いアウターにシンプルな組み合わせのコーデ" },
+                    { "image": "https://imgur.com/30NygMy.jpg", "description": "ゆったりとした控えめなデザインのトップスとボトムス" }
+                ]
+            },
+             "クールカジュアル": {
+                "ストレート": [
+                    { "image": "https://imgur.com/7HZOR4C.jpg", "description": "光沢感あるジャケットに派手なアクセサリー" },
+                    { "image": "https://imgur.com/QvUKUDO.jpg", "description": "カジュアルなレザーのセットアップ" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/em35skB.jpg", "description": "動きやすいスウェットにカジュアルなベスト" },
+                    { "image": "https://imgur.com/oVUsi2b.jpg", "description": "素材は柔らかめのモード系ファッション" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/jBQLBzM.jpg", "description": "固めのレザージャケットにゆったりとしたデニム" },
+                    { "image": "https://imgur.com/YyxC8o8.jpg", "description": "ボーイッシュなスタイルにとがった靴" }
+                ]
+            },
+　　　　　　 "クール": {
+                "ストレート": [
+                    { "image": "https://imgur.com/zeWP27A.jpg", "description": "Vネックの一枚できめたトップスと重めのブーツ" },
+                    { "image": "https://imgur.com/5oA0YBQ.jpg", "description": "すっきりしたトップスにストレートパンツ" }
+                ],
+                "ウェーブ": [
+                    { "image": "https://imgur.com/Ye8By1F.jpg", "description": "ウエスト位置のベルトと落ち着いた色でまとめられたスタイリング" },
+                    { "image": "https://imgur.com/LBD7Ntk.jpg", "description": "上重心のトップスにハイウエストのミニ丈ボトムス" }
+                ],
+                "ナチュラル": [
+                    { "image": "https://imgur.com/B8qE71Q.jpg", "description": "高級感ある都会的なファッション" },
+                    { "image": "https://imgur.com/Ro6hiyW.jpg", "description": "大人なトップスにゆとりのある長めのボトムス" }
+                ]
+            }
+        };
+
+        let currentQuestion = 0;
+        const answers = [];
+
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.question');
+            questions.forEach((question, idx) => {
+                question.classList.toggle('active', idx === index);
+            });
+        }
+
+        function handleAnswer(answer) {
+            answers.push(answer);
+            currentQuestion++;
+            if (currentQuestion < document.querySelectorAll('.question').length) {
+                showQuestion(currentQuestion);
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+    let child_elements = 0;
+    let adult_elements = 0;
+    let curve_elements = 0;
+    let straight_elements = 0;
+    let large_parts = 0;
+
+    // 顔タイプ診断
+    for (let i = 0; i < 8; i++) {  // 新しい質問を含めて8つに
+        if (answers[i] === 'A') child_elements++;
+        else adult_elements++;
+    }
+    for (let i = 8; i < 15; i++) {  // インデックスを調整
+        if (answers[i] === 'C') {
+            curve_elements++;
+        } else {
+            straight_elements++;
+        }
+    }
+
+    // パーツの大きさチェック（目、口、鼻）
+    let big_parts_count = 0;
+    if (answers[5] === 'B') big_parts_count++; // 目が大きい
+    if (answers[6] === 'B') big_parts_count++; // 口が大きい
+    if (answers[7] === 'B') big_parts_count++; // 鼻が大きい
+
+    if (big_parts_count >= 2) {
+        large_parts = 1; // パーツが大きいと判定
+    }
+
+    let face_type;
+    if (child_elements > adult_elements) {
+        // 子供顔
+        if (curve_elements >= 6) {
+            face_type = (large_parts === 1) ? "アクティブキュート" : "キュート";
+        } else {
+            face_type = (straight_elements >= 6) ? "クールカジュアル" : "フレッシュ";
+        }
+    } else {
+        // 大人顔
+        if (curve_elements >= 6) {
+            face_type = "フェミニン";
+        } else if (straight_elements >= 2 && straight_elements <= 5) {
+            face_type = (large_parts === 1) ? "エレガント" : "ソフトエレガント";
+        } else {
+            face_type = "クール";
+        }
+    }
+
+            // 骨格診断
+            let straight_elements_b = 0;
+            let wave_elements_b = 0;
+            let natural_elements_b = 0;
+
+            for (let i = 15; i < answers.length; i++) {
+                if (answers[i] === '1') straight_elements_b++;
+                else if (answers[i] === '2') wave_elements_b++;
+                else natural_elements_b++;
+            }
+
+            let body_type;
+            if (straight_elements_b > wave_elements_b && straight_elements_b > natural_elements_b) {
+                body_type = "ストレート";
+            } else if (wave_elements_b > straight_elements_b && wave_elements_b > natural_elements_b) {
+                body_type = "ウェーブ";
+            } else {
+                body_type = "ナチュラル";
+            }
+
+            // 結果の表示
+            const suggestions = coordinates[face_type][body_type];
+            const resultContainer = document.getElementById('result-container');
+            const formContainer = document.getElementById('form-container');
+
+            // 質問フォームを隠して結果を表示
+            formContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+
+            // 診断結果を表示
+            resultContainer.innerHTML = `<h2>診断結果</h2>
+                                         <p>顔タイプ: ${face_type}</p>
+                                         <p>骨格: ${body_type}</p>`;
+
+            suggestions.forEach(suggestion => {
+                const img = document.createElement('img');
+                img.src = suggestion.image;
+                img.alt = suggestion.description;
+
+                const desc = document.createElement('p');
+                desc.textContent = suggestion.description;
+
+                resultContainer.appendChild(img);
+                resultContainer.appendChild(desc);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.start-button').addEventListener('click', () => {
+                document.getElementById('start-container').style.display = 'none';
+
+                document.getElementById('form-container').style.display = 'block';
+                showQuestion(currentQuestion);
+            });
+
+            document.querySelectorAll('.question-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = button.getAttribute('data-answer');
+                    handleAnswer(answer);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
